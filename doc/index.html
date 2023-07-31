@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/side_bar.css">
+    <title>DOC</title>
+</head>
+<body>
+    <div class="side_bar"  id="side_bar">
+    
+    </div>
+    <div class="main">
+        <div id="main__title">
+        
+        </div>
+        <div id="main__body">
+            
+        </div>
+    </div>
+</body>
+<script src="./js/data.js"></script>
+<script>
+    window.addEventListener('load',()=>{
+        const side_bar = document.getElementById('side_bar')
+        let side_bar_elements = ''
+        data.forEach(d => {
+            const element = `
+                <div class="side_bar__element" onclick="setItem(${d.id})">
+                    ${d.title}
+                </div>
+            `        
+            side_bar_elements +=element
+        });
+    
+        side_bar.innerHTML = side_bar_elements
+
+    })
+
+    function setItem(item) {
+        const current_data = data.filter((d)=>d.id==item)
+        console.log(current_data[0])
+        main__title.innerHTML = current_data[0].title
+        main__body.innerHTML = current_data[0].body
+    }
+</script>
+</html>
