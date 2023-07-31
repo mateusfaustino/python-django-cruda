@@ -180,9 +180,108 @@ Isso iniciará o servidor e permitirá que você visualize o projeto. Verifique 
 
 No próximo vídeo, aprenderemos a configurar o fuso horário e traduzir a página para o português.
 
-Esperamos que essas práticas ajudem você a desenvolver a aplicação em Python utilizando o Django. Caso tenha alguma dúvida, não hesite em entrar em contato conosco.
+# Configurando Idioma Principal e Fuso Horário no Projeto Django
 
-Desejamos sucesso no desenvolvimento do projeto!
+Quando criamos uma aplicação em Django, é possível alterar o idioma principal e o fuso horário utilizados.
+
+### Configurações de Idioma e Fuso Horário
+
+As configurações relacionadas ao idioma da aplicação ficam no arquivo "settings.py", localizado em "setup > settings.py". Vamos abrir esse arquivo e utilizar os atalhos "Ctrl + B" e "Ctrl + J" para minimizá-lo e visualizar melhor seu conteúdo.
+
+Dentro do arquivo "settings.py", encontramos todas as configurações do projeto, incluindo dependências, templates e muito mais. Portanto, precisaremos manipulá-lo bastante durante o desenvolvimento. Nas linhas 106 e 108 do código do arquivo, encontramos as variáveis "LANGUAGE_CODE" e "TIME_ZONE", que são exatamente o que procurávamos.
+
+Ao lado de "LANGUAGE_CODE", encontramos o valor 'en-us', que representa o idioma inglês dos Estados Unidos. Vamos substituí-lo por 'pt-br' para alterar a linguagem da aplicação para o português brasileiro. Em relação ao fuso horário, utilizaremos o valor 'America/Sao_Paulo' para ajustar nosso fuso horário.
+
+### Verificando as Alterações
+
+Após realizar as alterações no arquivo "settings.py", podemos apertar "Ctrl + J" para abrir o terminal novamente. Vamos voltar ao servidor e atualizar a página no navegador. Com isso, veremos que a página exibida já está em português. Além disso, ao verificar as informações de hora, perceberemos que o fuso horário também foi atualizado corretamente.
+
+### Informações Adicionais
+
+Caso queira saber mais sobre o registro de fusos horários no Django 4.1, você pode acessar [este link](https://docs.djangoproject.com/en/4.1/topics/i18n/timezones/). A partir da versão 4 do Django, o pacote responsável pelo registro de horas é o zoneinfo. Em versões anteriores da ferramenta, era utilizado o comando USE_DEPRECATED_PYTZ.
+
+Com essas configurações, o idioma principal e o fuso horário do seu projeto Django estão devidamente ajustados. Isso proporcionará uma melhor experiência para os usuários e facilitará o desenvolvimento em um ambiente mais familiar.
+
+Esperamos que essas informações tenham sido úteis para você configurar corretamente o idioma e o fuso horário do seu projeto Django. Caso tenha alguma dúvida, estamos à disposição para ajudar.
+
+Desejamos sucesso no desenvolvimento da sua aplicação!
+
+Atenciosamente,
+
+Equipe de Instrutores do Curso de Django.
+
+# Versionamento do Projeto Django com Git e Github
+
+Agora que o projeto está configurado com o idioma e horário corretos, precisamos versionar o projeto utilizando o Git e o Github.
+
+## Gerenciamento da Django Secret Key
+
+Por questões de segurança, não devemos enviar todas as partes do código para o Github, principalmente a Django Secret Key. Essa chave secreta não deve ser disponibilizada publicamente, pois é uma informação sensível.
+
+### Removendo a Django Secret Key do Código
+
+Para evitar que a Secret Key seja enviada para o Github, vamos copiá-la utilizando "Ctrl + C" e depois removê-la do código em "setup > settings.py".
+
+### Utilizando Variáveis de Ambiente com python-dotenv
+
+Para evitar o envio da Secret Key e outras informações confidenciais, utilizaremos variáveis de ambiente com a biblioteca python-dotenv. Para começar, no terminal, instalaremos a dependência python-dotenv com o seguinte comando:
+
+```
+pip install python-dotenv
+```
+
+Em seguida, atualizaremos o arquivo "requirements.txt" com o comando:
+
+```
+pip freeze > requirements.txt
+```
+
+### Criando e Configurando o Arquivo .env
+
+Criaremos um novo arquivo chamado ".env" na pasta "alura-space". Dentro desse arquivo, inseriremos a Secret Key utilizando o seguinte formato:
+
+```
+SECRET_KEY=sua_secret_key_aqui
+```
+
+Agora, podemos remover a Secret Key do arquivo "settings.py".
+
+### Carregando as Variáveis de Ambiente no "settings.py"
+
+Voltaremos ao arquivo "settings.py" e importaremos a função `load_dotenv` na linha 13, junto com o `Path`:
+
+```python
+from pathlib import Path
+from dotenv import load_dotenv
+```
+
+Logo abaixo, criaremos a função `load_dotenv()`:
+
+```python
+load_dotenv()
+```
+
+Na linha 26 do código, onde estava a Secret Key, substituiremos o valor por `str(os.getenv('SECRET_KEY'))`.
+
+### Verificando a Funcionalidade
+
+Após realizar essas alterações, executaremos o servidor com o comando:
+
+```
+python manage.py runserver
+```
+
+Se atualizarmos a página no navegador, veremos que o projeto funcionará novamente.
+
+### Enviando o Projeto para o Github
+
+Agora, podemos enviar o projeto para o Github, e o arquivo ".env" não será enviado, garantindo que a Secret Key permaneça somente em nosso computador.
+
+Com essas configurações, sua Django Secret Key estará segura, evitando exposição em um repositório público no Github.
+
+Esperamos que esse guia tenha sido útil para você versionar seu projeto Django com segurança. Se tiver alguma dúvida, estamos à disposição para ajudar.
+
+Desejamos um desenvolvimento tranquilo e produtivo do seu projeto!
 
 Atenciosamente,
 
